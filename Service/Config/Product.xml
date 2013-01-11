@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:aop = "http://www.springframework.net/aop"
+         xmlns:db="http://www.springframework.net/database"
+         xmlns:tx="http://www.springframework.net/tx">
+
+  <object id="ProductService" type="Service.Products.ProductService,Service" >
+    <property name="ProductDao" ref="ProductDao"/>
+    <property name="LogHelper" ref="LogHelper"/>
+  </object>
+  <!--日志服务-->
+  <object id="LogService" type="Service.Common.LogService,Service" >
+    <property name="LogHelper" ref="LogHelper"/>
+  </object>
+</objects>
