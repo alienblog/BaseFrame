@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -26,7 +26,7 @@ namespace Domain.Entity
 		private IList<Product> _products = new List<Product>();
 		
 		#endregion
-
+        
         #region Constructors
 
         public Supplier() { }
@@ -216,5 +216,28 @@ namespace Domain.Entity
 		partial void OnProductsChanged();
 		
         #endregion
+        
+        public static SupplierPropertyName PropertyNames=new SupplierPropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class SupplierPropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string CompanyName=@"CompanyName";
+         public readonly string ContactName=@"ContactName";
+         public readonly string ContactTitle=@"ContactTitle";
+         public readonly string Address=@"Address";
+         public readonly string City=@"City";
+         public readonly string Region=@"Region";
+         public readonly string PostalCode=@"PostalCode";
+         public readonly string Country=@"Country";
+         public readonly string Phone=@"Phone";
+         public readonly string Fax=@"Fax";
+         public readonly string HomePage=@"HomePage";
+         public readonly string Products=@"Products";
+    }
+        #endregion
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -27,7 +27,7 @@ namespace Domain.Entity
 		
 		
 		#endregion
-
+        
         #region Constructors
 
         public Order() { }
@@ -229,5 +229,29 @@ namespace Domain.Entity
 		partial void OnShipperChanged();
 		
         #endregion
+        
+        public static OrderPropertyName PropertyNames=new OrderPropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class OrderPropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string OrderDate=@"OrderDate";
+         public readonly string RequiredDate=@"RequiredDate";
+         public readonly string ShippedDate=@"ShippedDate";
+         public readonly string Freight=@"Freight";
+         public readonly string ShipName=@"ShipName";
+         public readonly string ShipAddress=@"ShipAddress";
+         public readonly string ShipCity=@"ShipCity";
+         public readonly string ShipRegion=@"ShipRegion";
+         public readonly string ShipPostalCode=@"ShipPostalCode";
+         public readonly string ShipCountry=@"ShipCountry";
+         public readonly string Customer=@"Customer";
+         public readonly string Employee=@"Employee";
+         public readonly string Shipper=@"Shipper";
+    }
+        #endregion
 }

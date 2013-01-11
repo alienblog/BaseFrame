@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Domain.Entity
 		private IList<Territory> _territories = new List<Territory>();
 		
 		#endregion
-
+        
         #region Constructors
 
         public Region() { }
@@ -66,5 +66,18 @@ namespace Domain.Entity
 		partial void OnTerritoriesChanged();
 		
         #endregion
+        
+        public static RegionPropertyName PropertyNames=new RegionPropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class RegionPropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string RegionDescription=@"RegionDescription";
+         public readonly string Territories=@"Territories";
+    }
+        #endregion
 }

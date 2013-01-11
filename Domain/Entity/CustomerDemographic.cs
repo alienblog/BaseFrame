@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Domain.Entity
 		private IList<Customer> _customers = new List<Customer>();
 		
 		#endregion
-
+        
         #region Constructors
 
         public CustomerDemographic() { }
@@ -66,5 +66,18 @@ namespace Domain.Entity
 		partial void OnCustomersChanged();
 		
         #endregion
+        
+        public static CustomerDemographicPropertyName PropertyNames=new CustomerDemographicPropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class CustomerDemographicPropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string CustomerDesc=@"CustomerDesc";
+         public readonly string Customers=@"Customers";
+    }
+        #endregion
 }

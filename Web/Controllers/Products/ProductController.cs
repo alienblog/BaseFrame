@@ -3,30 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Facade.Common;
-using Facade.Products;
+using ISegregate.ICommon;
+using ISegregate.IProducts;
 using Model.Products;
 
 namespace Web.Controllers.Products
 {
+    /// <summary>
+    /// 产品控制器
+    ///  控制器的职责范围是专管与视图的控制交互，不包含数据验证和业务逻辑以及类型转化。
+    /// 数据验证是Model的职责。类型转化是Segregate的职责，应用逻辑是Service职责，领域逻辑是Domain的职责
+    /// </summary>
     public class ProductController : Controller
     {
+        private IProductSeg ProductSeg { get; set; }
+        private ILogSeg LogSeg { get; set; }
         //
         // GET: Product/Index
 
         public ActionResult Index()
         {
-            LogFacade logFacade=new LogFacade();
-            ProductFacade productFacade=new ProductFacade();
             List<ProductList> productList=new List<ProductList>();
             try
             {
-                productList = productFacade.GetAllProducts();
+                productList = ProductSeg.GetAllProducts();
+                //... ...
             }
             catch (Exception e)
             {
 
-                logFacade.WriteLog("ProductController.Index()异常", e);
+                LogSeg.WriteLog("ProductController.Index()异常", e);
             }
              
             return View("~/Views/Products/Index.cshtml",productList);
@@ -45,18 +51,20 @@ namespace Web.Controllers.Products
 
         public ActionResult Create()
         {
-            return View();
+            return View("~/Views/Products/Create.cshtml");
         } 
 
         //
         // POST: /Product/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateInput(false)]
+        public ActionResult Create(ProductList product)
         {
+            string p;
             try
             {
-                // TODO: Add insert logic here
+                p=product.ProductName;
 
                 return RedirectToAction("Index");
             }

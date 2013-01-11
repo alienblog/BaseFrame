@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Domain.Entity;
 
 namespace IService.IProducts
 {
-    public interface IProductService
+    public interface IProductService 
     {
         /// <summary>
         /// 获取产品
         /// </summary>
-        /// <returns>是否成功</returns>
+        /// <returns></returns>
         List<Product> GetAllProducts();
     }
 }

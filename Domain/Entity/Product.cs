@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -23,7 +23,7 @@ namespace Domain.Entity
 		
 		
 		#endregion
-
+        
         #region Constructors
 
         public Product() { }
@@ -170,5 +170,25 @@ namespace Domain.Entity
 		partial void OnSupplierChanged();
 		
         #endregion
+        
+        public static ProductPropertyName PropertyNames=new ProductPropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class ProductPropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string ProductName=@"ProductName";
+         public readonly string QuantityPerUnit=@"QuantityPerUnit";
+         public readonly string UnitPrice=@"UnitPrice";
+         public readonly string UnitsInStock=@"UnitsInStock";
+         public readonly string UnitsOnOrder=@"UnitsOnOrder";
+         public readonly string ReorderLevel=@"ReorderLevel";
+         public readonly string Discontinued=@"Discontinued";
+         public readonly string Category=@"Category";
+         public readonly string Supplier=@"Supplier";
+    }
+        #endregion
 }

@@ -40,12 +40,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\common\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop, Version=1.3.2.40943, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.3.2.40943, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data, Version=1.3.2.40943, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate32, Version=1.3.2.40943, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Spring.Data.NHibernate32.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web, Version=1.3.2.40943, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Spring.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web.Mvc3, Version=1.3.2.40943, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Spring.Web.Mvc3.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -72,6 +104,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Products\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -79,6 +112,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Configs\Base\Base.xml" />
+    <EmbeddedResource Include="Configs\Controler\Controler.xml" />
+    <EmbeddedResource Include="Configs\Dao\DaoHelp.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Dao\DBDao.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Dao\FileDao.xml" />
+    <EmbeddedResource Include="Configs\Segregate\Segregate.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Service\Service.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Configs\systemConfig.xml" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -108,24 +157,23 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="lib\common\Antlr3.Runtime.dll" />
-    <Content Include="lib\common\Bamboo.Prevalence.dll" />
-    <Content Include="lib\common\Bamboo.Prevalence.Util.dll" />
-    <Content Include="lib\common\Common.Logging.dll" />
-    <Content Include="lib\common\Iesi.Collections.dll" />
-    <Content Include="lib\common\LinFu.DynamicProxy.dll" />
-    <Content Include="lib\common\log4net.dll" />
-    <Content Include="lib\common\MvcPager.dll" />
-    <Content Include="lib\common\Newtonsoft.Json.dll" />
-    <Content Include="lib\common\NHibernate.ByteCode.LinFu.dll" />
-    <Content Include="lib\common\NHibernate.Caches.Prevalence.dll" />
-    <Content Include="lib\common\NHibernate.dll" />
-    <Content Include="lib\common\nunit.framework.dll" />
-    <Content Include="lib\common\Remotion.Data.Linq.dll" />
-    <Content Include="lib\common\Spring.Aop.dll" />
-    <Content Include="lib\common\Spring.Core.dll" />
-    <Content Include="lib\common\Spring.Data.dll" />
-    <Content Include="lib\common\Spring.Data.NHibernate30.dll" />
+    <Content Include="lib\Antlr3.Runtime.dll" />
+    <Content Include="lib\Bamboo.Prevalence.dll" />
+    <Content Include="lib\Bamboo.Prevalence.Util.dll" />
+    <Content Include="lib\Common.Logging.dll" />
+    <Content Include="lib\Iesi.Collections.dll" />
+    <Content Include="lib\log4net.dll" />
+    <Content Include="lib\MvcPager.dll" />
+    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\NHibernate.dll" />
+    <Content Include="lib\nunit.framework.dll" />
+    <Content Include="lib\Remotion.Data.Linq.dll" />
+    <Content Include="lib\Spring.Aop.dll" />
+    <Content Include="lib\Spring.Core.dll" />
+    <Content Include="lib\Spring.Data.dll" />
+    <Content Include="lib\Spring.Data.NHibernate32.dll" />
+    <Content Include="lib\Spring.Web.dll" />
+    <Content Include="lib\Spring.Web.Mvc3.dll" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
@@ -159,13 +207,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\log4net_local.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Products\Index.cshtml" />
@@ -179,13 +225,13 @@
       <Project>{6A261DEA-0DF4-4DB7-9223-B40A457DD705}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Facade\Facade.csproj">
-      <Project>{21B7BEF6-DDD3-48DB-B5AF-6D34A2201102}</Project>
-      <Name>Facade</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IDAO\IDAO.csproj">
       <Project>{64861C64-BD14-4C95-B128-F66562D0D0C5}</Project>
       <Name>IDAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ISegregate\ISegregate.csproj">
+      <Project>{ED2F3711-0AC4-4250-909A-3F0291612CB5}</Project>
+      <Name>ISegregate</Name>
     </ProjectReference>
     <ProjectReference Include="..\IService\IService.csproj">
       <Project>{51866A5B-2A3F-474C-8CD3-C3DD9E16A834}</Project>
@@ -195,10 +241,20 @@
       <Project>{72238AA1-2DAD-49C5-9540-6715A70BEF4D}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Segregate\Segregate.csproj">
+      <Project>{EDE79A3D-C33F-4E2D-9C5B-4D88F813A61B}</Project>
+      <Name>Segregate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Service\Service.csproj">
       <Project>{E1B2C364-881D-45C0-85B3-D9D8A2D475F4}</Project>
       <Name>Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Products\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configs\log4net_local.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

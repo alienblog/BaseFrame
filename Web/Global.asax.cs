@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Spring.Web.Mvc;
 
 namespace Web
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : SpringMvcApplication
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
@@ -36,7 +38,11 @@ namespace Web
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            //log4net.Config.XmlConfigurator.Configure(new FileInfo("~/Config/log4net_local.config"));
+            //初始化日志文件 
+            var path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + WebConfigurationManager.AppSettings["log4net"];
+            var fi = new System.IO.FileInfo(path);
+            log4net.Config.XmlConfigurator.Configure(fi);
+           
         }
     }
 }

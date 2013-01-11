@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -17,7 +17,7 @@ namespace Domain.Entity
 		private IList<Order> _orders = new List<Order>();
 		
 		#endregion
-
+        
         #region Constructors
 
         public Shipper() { }
@@ -81,5 +81,19 @@ namespace Domain.Entity
 		partial void OnOrdersChanged();
 		
         #endregion
+        
+        public static ShipperPropertyName PropertyNames=new ShipperPropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class ShipperPropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string CompanyName=@"CompanyName";
+         public readonly string Phone=@"Phone";
+         public readonly string Orders=@"Orders";
+    }
+        #endregion
 }

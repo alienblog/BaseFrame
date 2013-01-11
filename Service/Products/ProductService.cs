@@ -9,6 +9,12 @@ using IService.IProducts;
 
 namespace Service.Products
 {
+    /// <summary>
+    /// 产品服务类
+    /// Service(服务层)为系统业务整合区，这里完成简单或复杂的应用逻辑，服务层整合Domain领域对象的领域逻辑和DAO数据的存取
+    /// 最终完成一定粒度的功能(如：一个用例--添加文章)。各个服务之间可以平行调用，但须以类似调用DAO方法一样使用接口通信
+    /// 以便组合完成一个更大粒度的功能方法(服务)。
+    /// </summary>
     public class ProductService : IProductService
     {
         private IProductDao ProductDao { get; set; }
@@ -16,13 +22,13 @@ namespace Service.Products
         /// <summary>
         /// 获取产品
         /// </summary>
-        /// <returns>是否成功</returns>
+        /// <returns></returns>
         public List<Product> GetAllProducts()
         {
             List<Product> productlist=new List<Product>();
             try
             {
-                productlist=ProductDao.GetAllProduct();
+                productlist=ProductDao.GetList();
             }
             catch (Exception e)
             {

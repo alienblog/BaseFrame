@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using Domain.common;
 using NHibernate;
 using NHibernate.Criterion;
 
@@ -165,6 +166,32 @@ namespace DAO.Hibernate.common
         /// <returns></returns>
         List<T> FindListByHql(string hql, object[] values, int pageIndex, int pageSize);
 
+        /// <summary>
+        /// 分页排序方法。
+        /// </summary>
+        /// <param name="entity">实体名称</param>
+        /// <param name="pageIndex">请求页</param>
+        /// <param name="pageSize">页大小</param>
+        /// <param name="orderBy">排序字段</param>
+        /// <param name="direction">排序方向</param>
+        /// <param name="search">查找字段</param>
+        /// <param name="recordCount">记录数</param>
+        /// <returns></returns>
+        List<T> GetPagedList(T entity, int pageIndex, int pageSize, string orderBy, string direction,
+                                    string search, out int recordCount);
+
+        /// <summary>
+        /// 分页排序方法。
+        /// </summary>
+        /// <param name="pageIndex">请求页</param>
+        /// <param name="pageSize">页大小</param>
+        /// <param name="where">查询条件</param>
+        /// <param name="orderBy">排序字段</param>
+        /// <param name="direction">排序方向</param>
+        /// <param name="recordCount">记录数</param>
+        /// <returns></returns>
+        List<T> GetPagedList(int pageIndex, int pageSize, List<CanYouWhere> where, string orderBy, bool isAsc,
+                                    out int recordCount);
         /// <summary>
         /// 使用hql获取分页,实体列表
         /// </summary>

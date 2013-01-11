@@ -44,6 +44,8 @@
     <Compile Include="ICustomerDao.cs" />
     <Compile Include="ICustomerDemographicDao.cs" />
     <Compile Include="IEmployeeDao.cs" />
+    <Compile Include="IFile\IFileDao.cs" />
+    <Compile Include="IFile\ISystemConfigDao.cs" />
     <Compile Include="IOrderDao.cs" />
     <Compile Include="IOrderDetailDao.cs" />
     <Compile Include="IProductDao.cs" />

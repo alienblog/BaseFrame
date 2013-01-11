@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,7 +18,7 @@ namespace Domain.Entity
 		private IList<Product> _products = new List<Product>();
 		
 		#endregion
-
+        
         #region Constructors
 
         public Category() { }
@@ -96,5 +96,20 @@ namespace Domain.Entity
 		partial void OnProductsChanged();
 		
         #endregion
+        
+        public static CategoryPropertyName PropertyNames=new CategoryPropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class CategoryPropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string CategoryName=@"CategoryName";
+         public readonly string Description=@"Description";
+         public readonly string Picture=@"Picture";
+         public readonly string Products=@"Products";
+    }
+        #endregion
 }

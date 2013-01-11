@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -31,7 +31,7 @@ namespace Domain.Entity
 		
 		
 		#endregion
-
+        
         #region Constructors
 
         public Employee() { }
@@ -291,5 +291,33 @@ namespace Domain.Entity
 		partial void OnEmployeeMemberChanged();
 		
         #endregion
+        
+        public static EmployeePropertyName PropertyNames=new EmployeePropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class EmployeePropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string LastName=@"LastName";
+         public readonly string FirstName=@"FirstName";
+         public readonly string Title=@"Title";
+         public readonly string TitleOfCourtesy=@"TitleOfCourtesy";
+         public readonly string BirthDate=@"BirthDate";
+         public readonly string HireDate=@"HireDate";
+         public readonly string Address=@"Address";
+         public readonly string City=@"City";
+         public readonly string Region=@"Region";
+         public readonly string PostalCode=@"PostalCode";
+         public readonly string Country=@"Country";
+         public readonly string HomePhone=@"HomePhone";
+         public readonly string Extension=@"Extension";
+         public readonly string Photo=@"Photo";
+         public readonly string Notes=@"Notes";
+         public readonly string PhotoPath=@"PhotoPath";
+         public readonly string EmployeeMember=@"EmployeeMember";
+    }
+        #endregion
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using Domain.common;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
@@ -114,20 +115,10 @@ namespace DAO.Hibernate.common
       /// <param name="entities"></param>
         public void SaveAll(List<T> entities)
       {
-          //for (int i = 0; i < entities.Count; i++)
-          //{
-          //    HibernateTemplate.Save(entities[i]);
-          //}
-          var session = SessionFactory.OpenStatelessSession(); 
-          using (var tx = session.BeginTransaction())
+          for (int i = 0; i < entities.Count; i++)
           {
-              foreach (var entity in entities)
-              {
-                  session.Insert(entity);
-              }
-              tx.Commit();
-          }
-          session.Close();
+              HibernateTemplate.Save(entities[i]);
+          } 
       }
         /// <summary>
         /// 增加或更新
@@ -135,7 +126,7 @@ namespace DAO.Hibernate.common
         /// <param name="entity"></param>
         public void SaveOrUpdate(T entity)
         {
-             HibernateTemplate.SaveOrUpdate(Session.Merge(entity));
+             HibernateTemplate.SaveOrUpdate(entity);
         }
         /// <summary>
         /// 增加或更新集合中的全部实体
@@ -268,6 +259,164 @@ namespace DAO.Hibernate.common
                                            .SetMaxResults(pageSize).List<T>();
             return list;
         }
+
+        /// <summary>
+        /// 分页排序方法。
+        /// </summary>
+        /// <param name="entity">实体名称</param>
+        /// <param name="pageIndex">请求页</param>
+        /// <param name="pageSize">页大小</param>
+        /// <param name="orderBy">排序字段</param>
+        /// <param name="direction">排序方向</param>
+        /// <param name="search">查找字段</param>
+        /// <param name="recordCount">记录数</param>
+        /// <returns></returns>
+        public List<T> GetPagedList(T entity,int pageIndex, int pageSize, string orderBy, string direction, string search, out int recordCount)
+      {
+          string hql;
+            Type t = entity.GetType();
+            string entityName = t.Name;
+          //默认按创建日期排序
+          if (String.IsNullOrEmpty(orderBy))
+          {
+              orderBy = "CreateOn";
+          }
+          //默认按创建日期排序
+          if (String.IsNullOrEmpty(direction))
+          {
+              orderBy = "asc";
+          }
+          //如果不是搜索
+          if (String.IsNullOrEmpty(search))
+          {
+              hql = "from " + entityName + "  order by " + orderBy + " " + direction;
+          }
+          else
+          {
+              hql = "from " + entity + " where UserName like '%" + search + "%' order by " + orderBy + " " + direction;
+          }
+
+          IQuery iQuery = this.GetSession().CreateQuery(hql);
+          recordCount = iQuery.List().Count;
+          var list = (List<T>)iQuery.SetFirstResult((pageIndex - 1) * pageSize)
+                                         .SetMaxResults(pageSize).List<T>();
+            
+          return list;
+      }
+
+        /// <summary>
+        /// 分页排序方法。
+        /// </summary>
+        /// <param name="pageIndex">请求页</param>
+        /// <param name="pageSize">页大小</param>
+        /// <param name="where">查询条件</param>
+        /// <param name="orderBy">排序字段</param>
+        /// <param name="direction">排序方向</param>
+        /// <param name="recordCount">记录数</param>
+        /// <returns></returns>
+        public List<T> GetPagedList(int pageIndex, int pageSize,List<CanYouWhere> where, string orderBy,bool isAsc, out int recordCount)
+      {
+          //默认按创建日期排序
+          if (String.IsNullOrEmpty(orderBy))
+          {
+              orderBy = "CreatedOn";
+          }
+          ICriteria c = this.GetSession().CreateCriteria<T>();
+
+          foreach (CanYouWhere w in where)
+          {
+              switch (w.OperatorWhere)
+              {
+                  case OperatorWhere.Or:
+                      switch (w.ComparisonWhere)
+                      {
+                          case ComparisonWhere.BetweenAnd:
+                              //q.Or(w.ColumnName).IsBetweenAnd(w.ParamStartValue, w.ParamEndValue);
+                              break;
+                          case ComparisonWhere.Equals:
+                              //q.Or(w.ColumnName).IsEqualTo(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.GreaterOrEquals:
+                              //q.Or(w.ColumnName).IsGreaterThanOrEqualTo(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.GreaterThan:
+                             // q.Or(w.ColumnName).IsGreaterThan(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.IsNull:
+                             // q.Or(w.ColumnName).IsNull();
+                              break;
+                          case ComparisonWhere.IsNotNull:
+                             // q.Or(w.ColumnName).IsNotNull();
+                              break;
+                          case ComparisonWhere.LessOrEquals:
+                             // q.Or(w.ColumnName).IsLessThanOrEqualTo(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.LessThan:
+                             // q.Or(w.ColumnName).IsLessThan(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.Like:
+                             // q.Or(w.ColumnName).Like(w.ParamStartValue.ToString());
+                              break;
+                          case ComparisonWhere.NotEquals:
+                              //q.Or(w.ColumnName).IsNotEqualTo(w.ParamStartValue);
+                              break;                       
+                      }
+                      break;
+                  default:
+                      switch (w.ComparisonWhere)
+                      {
+                          case ComparisonWhere.BetweenAnd:
+                              //q.And(w.ColumnName).IsBetweenAnd(w.ParamStartValue, w.ParamEndValue);
+                              break;
+                          case ComparisonWhere.Equals:
+                              c.Add(Restrictions.Eq(w.ColumnName, w.ParamStartValue));
+                              break;
+                          case ComparisonWhere.GreaterOrEquals:
+                              //q.And(w.ColumnName).IsGreaterThanOrEqualTo(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.GreaterThan:
+                              // q.And(w.ColumnName).IsGreaterThan(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.IsNull:
+                              c.Add(Restrictions.IsNull(w.ColumnName));
+                              break;
+                          case ComparisonWhere.IsNotNull:
+                              // q.And(w.ColumnName).IsNotNull();
+                              break;
+                          case ComparisonWhere.LessOrEquals:
+                              //q.And(w.ColumnName).IsLessThanOrEqualTo(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.LessThan:
+                              // q.And(w.ColumnName).IsLessThan(w.ParamStartValue);
+                              break;
+                          case ComparisonWhere.Like:
+                              c.Add(Restrictions.Like(w.ColumnName, string.Format("%{0}%", w.ParamStartValue)));
+                              break;
+                          case ComparisonWhere.NotEquals:
+                              c.Add(Restrictions.Not(Restrictions.Eq(w.ColumnName, w.ParamStartValue)));
+                              break;
+                          default:
+                              c.Add(Restrictions.Eq(w.ColumnName, w.ParamStartValue));break;
+                      }
+                      break;
+              }
+              
+          }
+          ////排序方向
+          //switch (isAsc)
+          //{
+          //    case true:
+          //        c.AddOrder(new Order(orderBy, true));
+          //        break;
+          //    case false:
+          //        c.AddOrder(new Order(orderBy, false));
+          //        break;
+          //}
+          recordCount = c.List().Count;
+          var list = (List<T>)c.SetFirstResult((pageIndex - 1) * pageSize)
+                                             .SetMaxResults(pageSize).List<T>();
+          return list;
+      }
       /// <summary>
       /// 使用hql获取分页,实体列表
       /// </summary>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,7 +19,7 @@ namespace Domain.Entity
 		
 		
 		#endregion
-
+        
         #region Constructors
 
         public OrderDetail() { }
@@ -124,5 +124,21 @@ namespace Domain.Entity
 		partial void OnDiscountChanged();
 		
         #endregion
+        
+        public static OrderDetailPropertyName PropertyNames=new OrderDetailPropertyName();
     }
+        #region PropertiesName扩展代码，用于获取属性名称
+        
+        
+        
+        public class OrderDetailPropertyName
+    {
+        public readonly string Id=@"Id";
+         public readonly string OrderID=@"OrderID";
+         public readonly string ProductID=@"ProductID";
+         public readonly string UnitPrice=@"UnitPrice";
+         public readonly string Quantity=@"Quantity";
+         public readonly string Discount=@"Discount";
+    }
+        #endregion
 }

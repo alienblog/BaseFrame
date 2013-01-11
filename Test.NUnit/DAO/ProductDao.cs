@@ -23,11 +23,11 @@ namespace Test.NUnit.DAO
         [Test]//OK
         public void TestAddGetAllProduct()
         {
-            var productDao = _applicationContext.GetObject("ProductDao") as IProductDao;
-            if (productDao != null)
-            {
-                var productlist = productDao.GetAllProduct();
-            }
+            //var productDao = _applicationContext.GetObject("ProductDao") as IProductDao;
+            //if (productDao != null)
+            //{
+            //    var productlist = productDao.GetAllProduct();
+            //}
         }
     }
 }
